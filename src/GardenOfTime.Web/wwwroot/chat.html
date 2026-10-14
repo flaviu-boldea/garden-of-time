@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="ro"><head><meta charset="utf-8"><title>Grădina Timpului</title></head>
+<body>
+<h1>Grădina Timpului – Chat</h1>
+<div id="log"></div>
+<form id="f"><input id="m" autocomplete="off" required><button>Send</button></form>
+<script>
+const history = [], log = document.getElementById('log');
+document.getElementById('f').onsubmit = async e => {
+  e.preventDefault();
+  const message = m.value; m.value = '';
+  log.append(Object.assign(document.createElement('p'), { textContent: 'You: ' + message }));
+  const r = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message, history }) });
+  const d = await r.json(), reply = d.reply ?? d.error;
+  history.push({ role: 'user', content: message }, { role: 'assistant', content: reply });
+  log.append(Object.assign(document.createElement('p'), { textContent: 'Bot: ' + reply }));
+};
+</script></body></html>
