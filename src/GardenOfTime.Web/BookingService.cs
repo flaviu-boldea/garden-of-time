@@ -22,6 +22,9 @@ public class BookingService(IBookingStore store, TimeProvider time)
 
     public Task<bool> IsAvailableAsync(DateOnly date) => store.IsDateTakenAsync(date).ContinueWith(t => !t.Result);
 
+    public Task<IReadOnlyCollection<DateOnly>> GetUnavailableDatesAsync(DateOnly from, DateOnly through) =>
+        store.GetTakenDatesAsync(from, through);
+
     private static bool IsValidEmail(string? e) =>
         !string.IsNullOrWhiteSpace(e) && MailAddress.TryCreate(e.Trim(), out var a) && a.Address == e.Trim();
 }

@@ -87,6 +87,8 @@ mainNav?.querySelectorAll("a").forEach((link) => {
   const today = new Date(); today.setHours(0, 0, 0, 0);
   let view = new Date(today.getFullYear(), today.getMonth(), 1);
   let selected = null;
+  let availabilityMonth = "";
+  let unavailableDates = new Set();
   const iso = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 
   const describe = (d) => {
@@ -115,6 +117,25 @@ mainNav?.querySelectorAll("a").forEach((link) => {
     }
   };
 
+  const loadUnavailableDates = async () => {
+    const year = view.getFullYear();
+    const month = view.getMonth() + 1;
+    const key = `${year}-${month}`;
+    if (availabilityMonth === key) return;
+    availabilityMonth = key;
+    unavailableDates = new Set();
+    try {
+      const r = await fetch(`${API}${year}/${month}`);
+      if (!r.ok) throw new Error(r.status);
+      const d = await r.json();
+      if (availabilityMonth !== key) return;
+      unavailableDates = new Set(Array.isArray(d.unavailableDates) ? d.unavailableDates : []);
+      render();
+    } catch {
+      if (availabilityMonth === key) status.textContent = "Nu am putut încărca zilele ocupate.";
+    }
+  };
+
   const render = () => {
     grid.textContent = "";
     title.textContent = view.toLocaleDateString("ro-RO", { month: "long", year: "numeric" });
@@ -127,11 +148,15 @@ mainNav?.querySelectorAll("a").forEach((link) => {
     for (let n = 1; n <= days; n++) {
       const date = new Date(view.getFullYear(), view.getMonth(), n);
       const b = document.createElement("button");
-      b.type = "button"; b.textContent = n; b.disabled = date < today;
+      const unavailable = unavailableDates.has(iso(date));
+      b.type = "button"; b.textContent = n; b.disabled = date < today || unavailable;
+      if (unavailable) b.classList.add("is-unavailable");
+      b.setAttribute("aria-label", `${date.toLocaleDateString("ro-RO", { day: "numeric", month: "long" })}${unavailable ? ", zi ocupată" : ""}`);
       b.setAttribute("aria-pressed", String(iso(date) === selected));
       b.addEventListener("click", () => select(date));
       grid.append(b);
     }
+    loadUnavailableDates();
   };
 
   root.querySelector(".cal-prev").addEventListener("click", () => { view = new Date(view.getFullYear(), view.getMonth() - 1, 1); render(); });

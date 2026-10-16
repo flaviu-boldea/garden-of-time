@@ -72,8 +72,11 @@ public class TableBookingStore : IBookingStore
         {
             var yearStart = year == from.Year ? from : new DateOnly(year, 1, 1);
             var yearEnd = year == through.Year ? through : new DateOnly(year, 12, 31);
+            var partitionKey = year.ToString();
+            var firstRowKey = yearStart.ToString("yyyy-MM-dd");
+            var lastRowKey = yearEnd.ToString("yyyy-MM-dd");
             var filter = TableClient.CreateQueryFilter(
-                $"PartitionKey eq {year} and RowKey ge {yearStart:yyyy-MM-dd} and RowKey le {yearEnd:yyyy-MM-dd}");
+                $"PartitionKey eq {partitionKey} and RowKey ge {firstRowKey} and RowKey le {lastRowKey}");
             await foreach (var entity in _table.QueryAsync<TableEntity>(filter))
                 dates.Add(DateOnly.ParseExact(entity.RowKey, "yyyy-MM-dd"));
         }
