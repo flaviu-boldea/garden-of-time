@@ -14,6 +14,9 @@ public class BookingServiceTests
         var s = Create();
         await s.CreateAsync(Req(Future));
         Assert.False(await s.IsAvailableAsync(Future));
+        var unavailable = await s.GetUnavailableDatesAsync(Future.AddDays(-1), Future.AddDays(1));
+        Assert.Contains(Future, unavailable);
+        Assert.Single(unavailable);
         await Assert.ThrowsAsync<BookingException>(() => s.CreateAsync(Req(Future)));
     }
 

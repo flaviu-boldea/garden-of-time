@@ -7,6 +7,7 @@ public interface IBookingStore
 {
     Task<bool> TryAddAsync(Booking booking);
     Task<bool> IsDateTakenAsync(DateOnly date);
+    Task<IReadOnlyCollection<DateOnly>> GetTakenDatesAsync(DateOnly from, DateOnly through);
 }
 
 public class InMemoryBookingStore : IBookingStore
@@ -16,6 +17,9 @@ public class InMemoryBookingStore : IBookingStore
     public Task<bool> TryAddAsync(Booking booking) => Task.FromResult(_byDate.TryAdd(booking.Date, booking));
 
     public Task<bool> IsDateTakenAsync(DateOnly date) => Task.FromResult(_byDate.ContainsKey(date));
+
+    public Task<IReadOnlyCollection<DateOnly>> GetTakenDatesAsync(DateOnly from, DateOnly through) =>
+        Task.FromResult<IReadOnlyCollection<DateOnly>>(_byDate.Keys.Where(date => date >= from && date <= through).ToArray());
 }
 
 /// <summary>Azure Table Storage store: one booking per date (PartitionKey = year, RowKey = date), so a date can't be double booked.</summary>
@@ -58,5 +62,24 @@ public class TableBookingStore : IBookingStore
         await EnsureAsync();
         var r = await _table.GetEntityIfExistsAsync<TableEntity>(date.Year.ToString(), date.ToString("yyyy-MM-dd"));
         return r.HasValue;
+    }
+
+    public async Task<IReadOnlyCollection<DateOnly>> GetTakenDatesAsync(DateOnly from, DateOnly through)
+    {
+        await EnsureAsync();
+        var dates = new List<DateOnly>();
+        for (var year = from.Year; year <= through.Year; year++)
+        {
+            var yearStart = year == from.Year ? from : new DateOnly(year, 1, 1);
+            var yearEnd = year == through.Year ? through : new DateOnly(year, 12, 31);
+            var partitionKey = year.ToString();
+            var firstRowKey = yearStart.ToString("yyyy-MM-dd");
+            var lastRowKey = yearEnd.ToString("yyyy-MM-dd");
+            var filter = TableClient.CreateQueryFilter(
+                $"PartitionKey eq {partitionKey} and RowKey ge {firstRowKey} and RowKey le {lastRowKey}");
+            await foreach (var entity in _table.QueryAsync<TableEntity>(filter))
+                dates.Add(DateOnly.ParseExact(entity.RowKey, "yyyy-MM-dd"));
+        }
+        return dates;
     }
 }

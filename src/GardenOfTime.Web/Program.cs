@@ -24,8 +24,9 @@ if (!string.IsNullOrEmpty(aoai["Endpoint"]) && !string.IsNullOrEmpty(aoai["ApiKe
     kb.Plugins.AddFromType<BookingPlugin>("Bookings");
 }
 
+var corsOrigins = builder.Configuration.GetSection("Cors:Origins").Get<string[]>() ?? ["https://sites.google.com"];
 builder.Services.AddCors(o => o.AddDefaultPolicy(p => p
-    .WithOrigins(builder.Configuration.GetSection("Cors:Origins").Get<string[]>() ?? ["https://sites.google.com"])
+    .WithOrigins([.. corsOrigins, "https://wonderful-moss-0448b2d10.2.azurestaticapps.net"])
     .AllowAnyHeader().AllowAnyMethod()));
 
 var app = builder.Build();
@@ -34,6 +35,13 @@ app.UseDefaultFiles();
 app.UseStaticFiles();
 
 app.MapGet("/api/availability/{date}", async (DateOnly date, BookingService s) => Results.Ok(new { date, available = await s.IsAvailableAsync(date) }));
+app.MapGet("/api/availability/{year:int}/{month:int}", async (int year, int month, BookingService s) =>
+{
+    if (year is < 1 or > 9999 || month is < 1 or > 12) return Results.BadRequest(new { error = "Invalid month." });
+    var from = new DateOnly(year, month, 1);
+    var through = new DateOnly(year, month, DateTime.DaysInMonth(year, month));
+    return Results.Ok(new { unavailableDates = await s.GetUnavailableDatesAsync(from, through) });
+});
 
 app.MapPost("/api/bookings", async (BookingRequest r, BookingService s) =>
 {

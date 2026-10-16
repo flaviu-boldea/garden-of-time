@@ -256,4 +256,6 @@ button.button { border: 0; font-family: inherit; cursor: pointer; }
 .cal-grid button { aspect-ratio: 1; border: 1px solid transparent; border-radius: 8px; background: #eef1ea; cursor: pointer; font: inherit; }
 .cal-grid button:disabled { opacity: .35; cursor: default; }
 .cal-grid button[aria-pressed="true"] { background: #71836b; color: #fff; }
+.cal-grid button.is-unavailable { border-color: #c9a99e; background: #ead8d1; color: #7b4234; opacity: 1; text-decoration: line-through; }
+.cal-legend { margin: 12px 0 0; font-size: 12px; color: #7b4234; }
 .cal-status { margin-top: 16px; font-size: 14px; min-height: 22px; }
