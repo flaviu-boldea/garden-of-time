@@ -76,3 +76,65 @@ mainNav?.querySelectorAll("a").forEach((link) => {
     add("bot", reply);
   });
 })();
+
+(() => {
+  const root = document.querySelector("[data-calendar]");
+  if (!root) return;
+  const API = "https://gradina-timpului-api-cvgdb2ffa0bvemf4.centralus-01.azurewebsites.net/api/availability/";
+  const grid = root.querySelector(".cal-grid");
+  const title = root.querySelector(".cal-title");
+  const status = root.querySelector(".cal-status");
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  let view = new Date(today.getFullYear(), today.getMonth(), 1);
+  let selected = null;
+  const iso = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+
+  const describe = (d) => {
+    if (typeof d === "boolean") return d ? "Zi disponibilă." : "Zi indisponibilă.";
+    if (d && typeof d === "object") {
+      const flag = d.available ?? d.isAvailable;
+      const n = d.remaining ?? d.spotsLeft ?? d.availableSpots ?? d.slots;
+      if (typeof flag === "boolean") return (flag ? "Zi disponibilă" : "Zi indisponibilă") + (typeof n === "number" ? ` (${n} locuri)` : ".");
+      return Object.entries(d).map(([k, v]) => `${k}: ${typeof v === "object" ? JSON.stringify(v) : v}`).join(" · ");
+    }
+    return String(d);
+  };
+
+  const select = async (date) => {
+    selected = iso(date);
+    render();
+    status.textContent = "Se încarcă…";
+    try {
+      const r = await fetch(API + selected);
+      if (!r.ok) throw new Error(r.status);
+      const ct = r.headers.get("content-type") || "";
+      const d = ct.includes("json") ? await r.json() : await r.text();
+      if (selected === iso(date)) status.textContent = `${date.toLocaleDateString("ro-RO", { day: "numeric", month: "long", year: "numeric" })}: ${describe(d)}`;
+    } catch {
+      status.textContent = "Nu am putut verifica disponibilitatea. Încearcă din nou.";
+    }
+  };
+
+  const render = () => {
+    grid.textContent = "";
+    title.textContent = view.toLocaleDateString("ro-RO", { month: "long", year: "numeric" });
+    ["L", "M", "M", "J", "V", "S", "D"].forEach((n) => {
+      const s = document.createElement("span"); s.className = "dow"; s.textContent = n; grid.append(s);
+    });
+    const offset = (view.getDay() + 6) % 7;
+    for (let i = 0; i < offset; i++) grid.append(document.createElement("span"));
+    const days = new Date(view.getFullYear(), view.getMonth() + 1, 0).getDate();
+    for (let n = 1; n <= days; n++) {
+      const date = new Date(view.getFullYear(), view.getMonth(), n);
+      const b = document.createElement("button");
+      b.type = "button"; b.textContent = n; b.disabled = date < today;
+      b.setAttribute("aria-pressed", String(iso(date) === selected));
+      b.addEventListener("click", () => select(date));
+      grid.append(b);
+    }
+  };
+
+  root.querySelector(".cal-prev").addEventListener("click", () => { view = new Date(view.getFullYear(), view.getMonth() - 1, 1); render(); });
+  root.querySelector(".cal-next").addEventListener("click", () => { view = new Date(view.getFullYear(), view.getMonth() + 1, 1); render(); });
+  render();
+})();
