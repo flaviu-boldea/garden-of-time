@@ -30,4 +30,8 @@ public class BookingServiceTests
     [Fact]
     public async Task Rejects_past_date() =>
         await Assert.ThrowsAsync<BookingException>(() => Create().CreateAsync(Req(DateOnly.FromDateTime(DateTime.UtcNow.AddDays(-1)))));
+
+    [Fact]
+    public async Task Accepts_today() =>
+        await Create().CreateAsync(Req(DateOnly.FromDateTime(DateTime.UtcNow)));
 }
