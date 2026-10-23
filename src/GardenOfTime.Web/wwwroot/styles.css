@@ -53,12 +53,13 @@ h1 em, h2 em { color: #b6c4a9; font-weight: 500; }
 .caption-line { width: 38px; height: 1px; background: rgba(255,255,255,.7); }
 .hero-scroll { position: absolute; left: 50%; bottom: 24px; display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid rgba(255,255,255,.55); border-radius: 50%; color: white; text-decoration: none; transform: translateX(-50%); }
 
-.section { padding: 120px 12%; position: relative; }
+.section { padding: 88px 12%; position: relative; }
 .section-index { color: #7b8479; font-size: 9px; font-weight: 700; letter-spacing: .14em; }
 .section-index span { padding: 0 6px; color: var(--rust); }
-.intro { min-height: 700px; display: grid; grid-template-columns: 1fr 1fr; align-items: center; column-gap: 10%; }
-.intro > .section-index { position: absolute; left: 7.2%; top: 130px; }
+.intro { min-height: 520px; display: grid; grid-template-columns: 1fr 1fr; align-items: center; column-gap: 10%; }
+.intro.section { padding-top: 48px; padding-bottom: 48px; }
 .intro-copy { padding: 25px 0 0 8%; position: relative; z-index: 1; }
+.intro-copy .section-index { margin-bottom: 40px; }
 h2 { margin-bottom: 25px; font-size: clamp(42px, 5vw, 65px); }
 h2 em { color: var(--moss); }
 .intro-copy .lead { max-width: 465px; margin-bottom: 18px; color: #49584d; font-size: 17px; line-height: 1.8; }
@@ -70,7 +71,7 @@ h2 em { color: var(--moss); }
 .photo-note { position: absolute; z-index: 2; right: -18px; bottom: 24px; padding: 12px 16px; background: var(--cream); color: #687367; font: italic 12px var(--serif); }
 .decorative-sun { position: absolute; right: 7%; bottom: 50px; color: #c0c9b7; font-size: 65px; font-weight: 300; }
 
-.experiences { padding-top: 90px; padding-bottom: 130px; background: #e8e9df; }
+.experiences { padding-top: 64px; padding-bottom: 88px; background: #e8e9df; }
 .section-top { display: flex; justify-content: space-between; align-items: end; margin-bottom: 48px; }
 .section-top h2 { margin-bottom: 0; }
 .section-aside { width: 265px; margin: 0 7% 5px 20px; color: #6c776b; font: italic 16px/1.65 var(--serif); }
@@ -86,6 +87,8 @@ h2 em { color: var(--moss); }
 .card-content p { max-width: 300px; margin: 0; color: rgba(255,255,255,.83); font-size: 11px; line-height: 1.65; }
 .experience-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
 .experience-tags span { padding: 8px 14px; border: 1px solid #c7cdc0; border-radius: 20px; color: #627064; font-size: 10px; }
+.experience-grid.four-cols { grid-template-columns: repeat(4, 1fr); }
+.experience-grid.four-cols .experience-card { height: 340px; }
 
 .path-section { display: grid; grid-template-columns: 1fr 1fr; min-height: 600px; background: var(--forest); color: white; }
 .path-image { min-height: 600px; }
@@ -97,7 +100,7 @@ h2 em { color: var(--moss); }
 .path-copy > p:not(.eyebrow) { color: #c6d0c6 !important; }
 .path-copy .text-link { color: white; }
 
-.visit { padding-top: 115px; padding-bottom: 130px; }
+.visit { padding-top: 88px; padding-bottom: 88px; }
 .visit .section-index { margin-bottom: 65px; }
 .visit-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 12%; }
 .visit-copy { padding-left: 7%; }
@@ -134,6 +137,19 @@ h2 em { color: var(--moss); }
 .reservation h2 em { color: #d0dac4; }
 .reservation > p:not(.eyebrow) { max-width: 420px; margin-bottom: 25px; color: rgba(255,255,255,.85); font-size: 13px; }
 .reservation-flower { position: absolute; right: 12%; top: 24px; color: rgba(224,231,214,.18); font-size: 170px; }
+.reservation-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 28px; margin-top: 28px; }
+.reservation-links a { padding-bottom: 3px; border-bottom: 1px solid rgba(255,255,255,.4); color: rgba(255,255,255,.9); font-size: 11px; font-weight: 600; letter-spacing: .04em; text-decoration: none; transition: color .2s, border-color .2s; }
+.reservation-links a:hover { border-color: white; color: white; }
+
+.audience-list { max-width: 440px; margin: 4px 0 10px; padding: 0; list-style: none; }
+.audience-list li { padding: 11px 0; border-bottom: 1px solid #d9dcd2; color: #4c594e; font-size: 13px; }
+.audience-list li:last-child { border-bottom: 0; }
+
+.testimonials { padding-bottom: 88px; }
+.testimonial-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.testimonial { margin: 0; padding: 36px 32px 28px; background: #e8e9df; }
+.testimonial p { margin-bottom: 20px; color: #3d4c42; font: italic 19px/1.55 var(--serif); }
+.testimonial cite { color: #75806f; font: 600 10px var(--sans); font-style: normal; letter-spacing: .06em; text-transform: uppercase; }
 .site-footer { min-height: 115px; padding: 28px 7.2%; display: grid; grid-template-columns: 1fr 1fr 1fr auto; align-items: center; gap: 20px; background: var(--cream); }
 .footer-brand .brand-mark { width: 34px; height: 34px; font-size: 18px; }
 .footer-brand .brand-name { font-size: 11px; }
@@ -155,10 +171,11 @@ h2 em { color: var(--moss); }
   .hero-content { padding-left: 9%; }
   .section { padding-right: 8%; padding-left: 8%; }
   .intro { column-gap: 6%; }
-  .intro > .section-index { left: 5%; }
+  .experience-grid.four-cols { grid-template-columns: 1fr 1fr; }
   .experience-card, .experience-card.card-large { height: 360px; }
   .section-aside { margin-right: 0; }
   .path-copy { padding-right: 9%; padding-left: 9%; }
+  .testimonial-grid { grid-template-columns: 1fr 1fr; }
   .location-copy { padding-left: 13%; }
   .site-footer { padding-right: 5%; padding-left: 5%; }
 }
@@ -182,9 +199,8 @@ h2 em { color: var(--moss); }
   .hero-copy { max-width: 325px; font-size: 14px; }
   .hero-caption { right: 22px; bottom: 25px; font-size: 8px; }
   .hero-scroll { display: none; }
-  .section { padding: 82px 25px; }
+  .section { padding: 64px 25px; }
   .intro { display: flex; flex-direction: column; align-items: stretch; gap: 35px; }
-  .intro > .section-index { position: static; order: 0; }
   .intro-copy { padding: 0; order: 1; }
   .intro-photo { height: 320px; margin: 4px 10px 0 0; order: 2; }
   .intro-photo::before { top: -13px; right: -12px; }
@@ -192,10 +208,11 @@ h2 em { color: var(--moss); }
   .decorative-sun { right: 24px; bottom: 17px; font-size: 42px; }
   h2 { font-size: clamp(43px, 11vw, 58px); }
   .intro-copy .lead { font-size: 15px; }
-  .experiences { padding-top: 80px; padding-bottom: 85px; }
+  .experiences { padding-top: 56px; padding-bottom: 64px; }
   .section-top { display: block; margin-bottom: 30px; }
   .section-aside { max-width: 300px; width: auto; margin: 20px 0 0; font-size: 15px; }
   .experience-grid { grid-template-columns: 1fr; gap: 13px; }
+  .experience-grid.four-cols { grid-template-columns: 1fr; }
   .experience-card, .experience-card.card-large { height: 350px; }
   .experience-card:first-child { height: 390px; }
   .card-content { right: 22px; bottom: 22px; left: 22px; }
@@ -220,6 +237,9 @@ h2 em { color: var(--moss); }
   .reservation { min-height: 430px; padding: 80px 24px; }
   .reservation h2 { font-size: clamp(46px, 12vw, 62px); }
   .reservation-flower { right: -10px; top: 5px; font-size: 125px; }
+  .testimonials { padding-bottom: 64px; }
+  .testimonial-grid { grid-template-columns: 1fr; gap: 12px; }
+  .testimonial p { font-size: 17px; }
   .site-footer { grid-template-columns: 1fr 1fr; gap: 16px 10px; padding: 25px; }
   .site-footer p { grid-column: 1 / -1; grid-row: 2; }
   .back-top { justify-self: end; }
