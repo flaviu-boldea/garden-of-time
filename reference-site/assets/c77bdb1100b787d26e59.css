@@ -1,0 +1,56 @@
+@font-face {
+  font-family: 'Gentium Basic';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("a61aa6ec3eecfcd57adc.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Gentium Basic';
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("c315b7c5f296da336b9c.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Gentium Basic';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("a910fcbe4223cd1358a8.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Gentium Basic';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("538e052690a4fe25db48.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("bcf904df202df853ba4e.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("57226fb8e671448dd333.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("94ea3185bcb43a7b7720.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("b35255c89e2236d146d6.ttf") format('truetype');
+}

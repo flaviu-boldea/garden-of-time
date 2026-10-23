@@ -1,0 +1,35 @@
+/* Offline navigation replaces the Google Sites application shell. */
+:root { --local-green: #244735; --local-paper: #fffef8; }
+html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+html:has(body.local-site), body.local-site { height: auto !important; min-height: 100%; }
+body.local-site { margin: 0; }
+.local-site .QZ3zWd, .local-site .fktJzd { height: auto !important; min-height: 0 !important; }
+.local-header { position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 14px 28px; background: var(--local-paper); color: var(--local-green); box-shadow: 0 1px 8px #00000015; font: 15px/1.5 Arial, sans-serif; }
+.local-header a { color: inherit; text-decoration: none; }
+.local-brand { flex-shrink: 0; font: bold 23px/1.4 Lora, Georgia, serif; }
+#local-navigation > ul { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 16px; }
+#local-navigation ul { list-style: none; margin: 0; padding: 0; }
+#local-navigation li { position: relative; }
+#local-navigation a { display: inline-block; padding: 8px 0; }
+#local-navigation a:hover, #local-navigation a[aria-current] { text-decoration: underline; text-underline-offset: 5px; }
+#local-navigation li > ul { display: none; position: absolute; right: 0; top: 100%; min-width: 250px; padding: 12px 18px; background: var(--local-paper); box-shadow: 0 6px 18px #0002; border-radius: 0 0 8px 8px; }
+#local-navigation li > ul a { display: block; }
+#local-navigation li:hover > ul, #local-navigation li:focus-within > ul, #local-navigation li.local-open > ul { display: block; }
+.local-menu-button, .local-submenu-button { border: 0; background: transparent; color: inherit; cursor: pointer; font: inherit; padding: 8px; }
+.local-menu-button { display: none; }
+.local-embed-notice { padding: 10px 18px; color: #445448; background: #f3f5ef; font: 14px/1.6 Arial, sans-serif; }
+/* These elements only work with Google's removed application scripts. */
+.local-site .fktJzd > header, .local-site [aria-label="Open search bar"], .local-site [aria-label="Show sidebar"], .local-site [aria-label="Site actions"] { display: none !important; }
+.local-site .fktJzd { padding-top: 0 !important; }
+@media (max-width: 1050px) {
+  .local-header { flex-wrap: wrap; padding: 12px 18px; gap: 8px; }
+  .local-brand { font-size: 21px; }
+  .local-menu-button { display: block; }
+  #local-navigation { display: none; width: 100%; max-height: 75vh; overflow: auto; }
+  .local-header.local-open #local-navigation { display: block; }
+  #local-navigation > ul { display: block; }
+  #local-navigation li > ul { position: static; box-shadow: none; padding: 0 0 4px 18px; min-width: 0; }
+  #local-navigation li:hover > ul { display: none; }
+  #local-navigation li.local-open > ul, #local-navigation li:focus-within > ul { display: block; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
