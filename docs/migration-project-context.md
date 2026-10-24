@@ -13,8 +13,14 @@ Migrate content from Google Sites export (`reference-site/*.html`) into the new 
 - Old placeholder grid (stock photos) removed — all photos now real garden photos.
 - New assets: `alee-terapeutica-traseu.jpg`, `alee-terapeutica-descult.jpg`, `perseide-cer-instelat.jpg`, `cicloturism-vama-buzaului.jpg`, `atelier-plante-medicinale.jpg`, `degustare-vin-apus.jpg`, `cinema-sub-stele.jpg`, `drumetie-munte-vama.jpg`, `placinte-salajene-brunch.jpg`, `baschet-in-gradina.png`.
 
-## Next: obiective-turistice
-- Then: contact-rezervari* (4 pages), utile* (4 pages).
+## Done: obiective-turistice + cum-poti-ajunge + evenimente + cazare (2026-10-24)
+- New page `imprejurimi.html` (nav "Împrejurimi", added to all pages except index.html which stays byte-identical): 01 OBIECTIVE TURISTICE (8 quote cards, video on top, cite→valea-zimbrilor.ro), 02 EVENIMENTE (4-card grid: Vama pe bicicletă, Festivalul Național de Folk, Gospodarul Vămăsan, Târgul de Brânză), 03 CAZARE (The Valley Resort + Vama 54 quote-video cards, link to valea-zimbrilor.ro/cazare), rezervare CTA.
+- `cum-ajungi.html`: 01 location map, 02 CUM AJUNGI (4 transport modes as `.audience-list`: 🚗 Brașov, 🚌 linia 540+541, 🚂 tren Întorsura Buzăului, 🛣️ București DN1+DJ103B; links ratbv.ro + mersultrenurilor.infofer.ro).
+- YouTube embeds: use `www.youtube.com/embed` + `referrerpolicy="strict-origin-when-cross-origin"` (youtube-nocookie throws Error 153).
+- New CSS: `.testimonial-grid.two-cols` (2-col, flex cards, cite pinned bottom), `.testimonial iframe`, `.testimonial cite a`, `.intro-copy .text-link + .text-link`.
+
+## Next: contact-rezervari* (contact, robotelul-gradinii, formular, tarife)
+- Then: utile* remaining (vremea, cand-e-cel-mai-bine).
 
 ## Reference-site handling
 - Google Sites HTML is heavy markup with long lines; extract text with python `html.parser` (skip script/style).
