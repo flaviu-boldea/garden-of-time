@@ -99,6 +99,7 @@ h2 em { color: var(--moss); }
 .path-copy h2 em { color: #b6c4a9; }
 .path-copy > p:not(.eyebrow) { color: #c6d0c6 !important; }
 .path-copy .text-link { color: white; }
+.path-copy .section-index { margin-bottom: 40px; color: #c1cdb8; }
 
 .visit { padding-top: 88px; padding-bottom: 88px; }
 .visit .section-index { margin-bottom: 65px; }
