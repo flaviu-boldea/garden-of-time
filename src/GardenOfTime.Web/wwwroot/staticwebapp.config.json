@@ -1,6 +1,7 @@
 {
   "routes": [
     { "route": "/", "rewrite": "/construction.html" },
-    { "route": "/index.html", "rewrite": "/index.html" }
+    { "route": "/construction.html" },
+    { "route": "/*.html", "headers": { "X-Robots-Tag": "noindex, nofollow" } }
   ]
 }
