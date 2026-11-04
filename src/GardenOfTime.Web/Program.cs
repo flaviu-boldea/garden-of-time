@@ -31,7 +31,13 @@ builder.Services.AddCors(o => o.AddDefaultPolicy(p => p
 
 var app = builder.Build();
 app.UseCors();
-app.UseDefaultFiles();
+
+// Serve construction.html as the default file instead of index.html
+var defaultFilesOptions = new DefaultFilesOptions();
+defaultFilesOptions.DefaultFileNames.Clear();
+defaultFilesOptions.DefaultFileNames.Add("construction.html");
+app.UseDefaultFiles(defaultFilesOptions);
+
 app.UseStaticFiles();
 
 app.MapGet("/api/availability/{date}", async (DateOnly date, BookingService s) => Results.Ok(new { date, available = await s.IsAvailableAsync(date) }));

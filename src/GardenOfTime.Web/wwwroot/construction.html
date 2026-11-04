@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ro">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f6f4ed">
+    <meta name="description" content="Grădina Timpului este în construcție. Ne vedem în 2027.">
+    <title>Grădina Timpului — În lucru</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Sari la conținut</a>
+    <header class="site-header construction-header">
+      <a class="brand" href="construction.html" aria-label="Grădina Timpului, acasă">
+        <span class="brand-mark" aria-hidden="true">gt</span>
+        <span class="brand-name">grădina <strong>timpului</strong></span>
+      </a>
+      <p class="construction-tagline">Un loc de tihnă în Buzaiel, Vama Buzăului.</p>
+    </header>
+
+    <main id="main">
+      <section class="hero construction-hero" id="acasa" aria-labelledby="hero-title">
+        <div class="hero-image construction-hero-image" role="img" aria-label="Peisaj verde în lumina caldă a dimineții"></div>
+        <div class="hero-content">
+          <p class="eyebrow"><span></span> Buzaiel · Vama Buzăului</p>
+          <h1 id="hero-title">Un loc să<br><em>te oprești.</em></h1>
+          <p class="hero-copy">Lasă graba deoparte. Te așteaptă o grădină liniștită, aproape de natură și de lucrurile simple.</p>
+          <p class="hero-copy construction-message">Grădina Timpului și site-ul sunt în lucru.<br><strong>Ne vedem în 2027.</strong></p>
+        </div>
+        <div class="hero-caption"><span class="caption-line"></span> un refugiu verde, creat cu grijă</div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <a class="brand footer-brand" href="construction.html"><span class="brand-mark" aria-hidden="true">gt</span><span class="brand-name">grădina <strong>timpului</strong></span></a>
+      <p>Un loc de tihnă în Buzaiel, Vama Buzăului.</p>
+      <span class="copyright">© Grădina Timpului</span>
+    </footer>
+
+    <style>
+      .construction-tagline { margin: 0; color: #788177; font-size: 10px; text-align: right; }
+      .construction-hero .hero-content { max-width: none; }
+      .construction-hero h1 { white-space: nowrap; }
+      .construction-hero { height: auto; max-height: none; min-height: calc(100svh - 86px); }
+      @media (max-width: 900px) {
+        .construction-hero { min-height: calc(100svh - 76px); }
+      }
+      @media (max-width: 560px) {
+        .construction-tagline { max-width: 130px; font-size: 9px; }
+        .construction-hero { min-height: calc(100svh - 70px); }
+        .construction-hero .hero-content { padding: 90px 22px 80px; }
+        .construction-hero h1 { font-size: clamp(40px, 12.5vw, 72px); }
+      }
+    </style>
+  </body>
+</html>
