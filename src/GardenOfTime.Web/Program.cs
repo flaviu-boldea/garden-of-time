@@ -26,7 +26,7 @@ if (!string.IsNullOrEmpty(aoai["Endpoint"]) && !string.IsNullOrEmpty(aoai["ApiKe
 
 var corsOrigins = builder.Configuration.GetSection("Cors:Origins").Get<string[]>() ?? ["https://sites.google.com"];
 builder.Services.AddCors(o => o.AddDefaultPolicy(p => p
-    .WithOrigins([.. corsOrigins, "https://wonderful-moss-0448b2d10.2.azurestaticapps.net"])
+    .WithOrigins([.. corsOrigins, "https://wonderful-moss-0448b2d10.2.azurestaticapps.net", "https://gradinatimpului.ro", "https://www.gradinatimpului.ro"])
     .AllowAnyHeader().AllowAnyMethod()));
 
 var app = builder.Build();

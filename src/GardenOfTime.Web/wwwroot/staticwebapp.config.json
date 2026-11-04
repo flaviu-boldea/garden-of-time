@@ -1,0 +1,6 @@
+{
+  "routes": [
+    { "route": "/", "rewrite": "/construction.html" },
+    { "route": "/index.html", "rewrite": "/index.html" }
+  ]
+}
