@@ -3,5 +3,8 @@
     { "route": "/", "rewrite": "/construction.html" },
     { "route": "/construction.html" },
     { "route": "/*.html", "headers": { "X-Robots-Tag": "noindex, nofollow" } }
-  ]
+  ],
+  "globalHeaders": {
+    "Strict-Transport-Security": "max-age=31536000; includeSubDomains"
+  }
 }
